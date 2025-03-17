@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Acesse todos os meus links em um só lugar. Redes sociais, contatos e muito mais!">
+<meta name="keywords" content="links, redes sociais, contato, bio, website">
+<meta name="author" content="Augusto">
+  <title>Diego Augusto - Contatos</title>
+  <style>
+    /* Modos de tela */
+    body.dark-mode {
+      background: linear-gradient(135deg, #220022, #550000);
+      color: white;
+    }
+    body.light-mode {
+      /* Visual claro e distinto do modo escuro */
+      background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      color: #333;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 320px;
+      padding: 15px;
+      background: linear-gradient(135deg, #330033, #770000);
+      border-radius: 15px;
+      box-shadow: 0px 0px 30px rgba(255, 0, 0, 0.7);
+      transition: transform 0.3s;
+    }
+    .container:hover {
+      transform: scale(1.05);
+    }
+    /* Alteração no modo claro */
+    body.light-mode .container {
+      background: linear-gradient(135deg, #f0f0f0, #cccccc); /* Fundo mais claro no modo claro */
+    }
+    body.light-mode .container h2,
+    body.light-mode .description {
+      color: #222; /* Cor do texto no modo claro */
+    }
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff3333;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+    }
+    .profile-img:hover {
+      transform: scale(1.2);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .description {
+      font-size: 14px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+      min-height: 20px; /* Garante espaço para o efeito digitado */
+    }
+    /* Área para exibição dos botões – um por vez */
+    .links {
+      position: relative;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .links a {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(90deg, #ff6f61, #ff9472);
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s;
+      opacity: 0;
+    }
+    .links a:hover {
+      background: linear-gradient(90deg, #ff8a65, #ffab91);
+      transform: scale(1.05);
+      box-shadow: 0px 4px 12px rgba(255, 51, 51, 0.7);
+    }
+    /* Botão para alternar modos */
+    #toggle-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 8px 12px;
+      background: #ff3333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #toggle-mode:hover {
+      background: #cc0000;
+    }
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <button id="toggle-mode">Modo Claro</button>
+  <div class="container">
+    <img src="imagemPerfil.jpg" alt="Augusto" class="profile-img">
+    <h2 class="title">Diego Augusto - Contatos:</h2>
+    <p class="description"></p>
+    <div class="links" id="links-container"></div>
+  </div>
+
+  <script>
+    // Array com os links (nomes e URLs originais)
+    const links = [
+      { url: "https://wa.me/5544988047395", text: "📞 WhatsApp" },
+      { url: "https://www.linkedin.com/in/diego-augusto-moreira-b9907823b/", text: "🔗 Linkedin" },
+      { url: "https://github.com/moreiradiegoauguusto", text: "📌 GitHub" },
+    ];
+
+    const toggleBtn = document.getElementById("toggle-mode");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        toggleBtn.textContent = "Modo Escuro";
+      } else {
+        toggleBtn.textContent = "Modo Claro";
+      }
+    });
+
+    // Função para efeito digitado em textos
+    function typeOut(element, text, speed, callback) {
+      let i = 0;
+      element.textContent = "";
+      function typeLetter() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeLetter, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      typeLetter();
+    }
+
+    // Função para efeito digitado nos botões
+    function typeOutButton(a, text, speed, callback) {
+      let i = 0;
+      a.textContent = "";
+      function typeLetter() {
+        if (i < text.length) {
+          a.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeLetter, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      typeLetter();
+    }
+
+    // Efeito digitado para a descrição
+    const descriptionText = "Web Developer - Acesse meus links abaixo:";
+    const descriptionElement = document.querySelector(".description");
+    typeOut(descriptionElement, descriptionText, 50, () => {
+      cycleButtons();
+    });
+
+    // Variáveis para controle do ciclo dos botões
+    let index = 0;
+    let direction = 1; // 1 para avançar, -1 para voltar
+    let pauseCycle = false; // Flag para pausar em hover
+
+    // Função que exibe os botões de forma cíclica com efeito digitado
+    function cycleButtons() {
+      const container = document.getElementById("links-container");
+      container.innerHTML = "";
+      const a = document.createElement("a");
+      a.href = links[index].url;
+      a.target = "_blank";
+      container.appendChild(a);
+
+      // Pausa o ciclo quando o mouse estiver sobre o botão
+      a.addEventListener("mouseover", () => { pauseCycle = true; });
+      a.addEventListener("mouseout", () => { pauseCycle = false; });
+
+      setTimeout(() => {
+        a.style.transition = "opacity 0.5s";
+        a.style.opacity = "1";
+        typeOutButton(a, links[index].text, 50, function() {
+          // Mantém o botão visível por um tempo antes de desaparecer
+          setTimeout(() => {
+            a.style.opacity = "0";
+            setTimeout(() => {
+              if (!pauseCycle) {
+                index += direction;
+                if (index >= links.length || index < 0) {
+                  direction *= -1;
+                  index += direction;
+                }
+                cycleButtons();
+              } else {
+                // Se estiver pausado, tenta novamente após 500ms
+                setTimeout(cycleButtons, 500);
+              }
+            }, 500);
+          }, 1500);
+        });
+      }, 500);
+    }
+  </script>
+</body>
+</html>
